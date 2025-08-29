@@ -4,13 +4,17 @@ export default function Weather() {
   const city = useRef();
   const [info, setInfo] = useState();
   const [weatherIcon, setWeatherIcon] = useState("");
+  const [error,setError] = useState(false)
   const API_KEY = "1dc02c2cda3d32eda98eede7405d0e42";
   const BASE = "https://api.openweathermap.org/data/2.5/weather";
-
+  function normalizeText(str){
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").toLowerCase();
+  }
 
   async function checkWeather() {
+    const cityName = normalizeText(city.current.value)
     const url = `${BASE}?${new URLSearchParams({
-      q: city.current.value,
+      q: cityName,
       units: "metric",
       appid: API_KEY,
     }).toString()}`;
@@ -19,15 +23,15 @@ export default function Weather() {
       const res = await fetch(url);
       if (!res.ok) {
         setInfo(null);
-        alert(`city does not exist, please re-enter
-thành phố không tồn tại vui lòng nhập lại bằng tiếng anh`);
-        // Nếu muốn clear cả khi lỗi thì mở dòng dưới:
-        // city.current.value = "";
+        setError(true)
+        
+        city.current.value = "";
         return;
       }
     console.log(res);
 
     const data = await res.json();
+    setError(false)
     console.log(data);
     
     //set Time
@@ -84,6 +88,7 @@ thành phố không tồn tại vui lòng nhập lại bằng tiếng anh`);
         <input type="text" ref={city} onKeyDown={(e) => e.key === "Enter" && handleClick()} placeholder="Enter city..."/>
         <button onClick={handleClick}>Search</button>
       </div>
+      {error?<p id="alert">city does not exist, please re-enter</p>:undefined}
       {/* card thời tiết */}
       {info? (
         <div className="show-weather">
