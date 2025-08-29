@@ -42,7 +42,6 @@ thành phố không tồn tại vui lòng nhập lại bằng tiếng anh`);
       temp: Math.round(data.main.temp),
       humidity: data.main.humidity,
       wind: data.wind.speed,
-      main: data.main.weather?.[0]?.main,
       dt: data.dt,
       localDate: dateStr,
       localTime: timeStr,
@@ -72,7 +71,7 @@ thành phố không tồn tại vui lòng nhập lại bằng tiếng anh`);
     <>
       {/* thanh search */}
       <div className="search">
-        <input type="text" ref={city} />
+        <input type="text" ref={city} onKeyDown={(e) => e.key === "Enter" && handleClick()}/>
         <button onClick={handleClick}>Search</button>
       </div>
       {/* card thời tiết */}
