@@ -6,19 +6,31 @@ body {
   min-width: 320px;
   min-height: 100vh;
   text-align: center;
-  background-image: linear-gradient(to right, rgb(68, 208, 233),rgb(255, 188, 65));
+  background-image: linear-gradient(to right, rgb(255, 255, 255),rgb(255, 156, 98));
+}
+h1 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  color: rgb(24, 24, 24); /* màu chữ */
+}
+
+
+h1 em{
+  font-style: normal;
+  color: #e2630e;
+  text-shadow: 0 0 12px #6d470088, 0 0 1px #fff;
 }
 
 /* CARD */
 .show-weather{
-  width: 360px;
+  width: 660px;
   margin: 0 auto;
   padding: 24px 22px 28px;
   border-radius: 18px;
-  color: #fff;
+  color: rgb(23, 23, 24);
   text-align: center;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  background: rgba(0, 0, 0, 0.7);  
+  background: rgba(0, 0, 0, 0.05);  
 
 }
 
@@ -47,10 +59,10 @@ body {
   margin-bottom: 5px;
 }
 input[type="text"]{
-  width: 15%;
+  width: 30%;
 
   padding: 15px 18px;
-  border: none;
+  border: 1px solid transparent;
   outline: none;
   border-radius: 999px;
   background: rgba(0,0,0,.50);
@@ -58,28 +70,37 @@ input[type="text"]{
   font-size: 1rem;
   
 }
+input[type="text"]:hover{
+  border: 1px solid white;
+}
+
 button{
   width: 53px;
   height: 53px;
   margin-left: 10px;
   border: none;
   border-radius: 999px;
-  background: rgba(0,0,0,.50);
+  background: rgba(253, 0, 0, 0.5);
   color: #fff;
   cursor: pointer;
 }
 button:hover{
-  background-image: linear-gradient(to right, rgb(68, 208, 233),rgb(255, 188, 65));
+  background: rgba(30, 253, 0, 0.5);
   color: rgb(0, 0, 0);
 }
 
 /* khu vực humidity + wind */
 .detail-weather{
   display: flex;
-  justify-content: space-between;   /* tách 2 khối sang 2 bên */
+  justify-content: center; 
+  gap: 50px;
   align-items: center;
   margin-top: 26px;
   padding: 0 4px;
+}
+#temp{
+  font-size: 60px;
+  margin: 0;
 }
 
 .column{
@@ -93,7 +114,7 @@ button:hover{
   width: 44px;
   height: 44px;
   /*  đổi sang trắng  */
-  filter: brightness(0) invert(1);; 
+  filter: brightness(0);
 }
 
 .humidity p:first-child,
@@ -112,4 +133,9 @@ button:hover{
 @media (max-width: 380px){
   .detail-weather{ flex-wrap: wrap; row-gap: 14px; }
   .column{ width: 100%; justify-content: center; }
+}
+#icon-weather-dark {
+  width: 120px;
+  filter: invert(1) grayscale(100%) brightness(100%);
+
 }

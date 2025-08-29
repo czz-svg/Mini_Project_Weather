@@ -24,6 +24,8 @@ thành phố không tồn tại vui lòng nhập lại bằng tiếng anh`);
     console.log(res);
 
     const data = await res.json();
+    console.log(data);
+    
     //set Time
     const local = new Date((data.dt + data.timezone) * 1000); // cộng offset (giây)
 
@@ -40,13 +42,18 @@ thành phố không tồn tại vui lòng nhập lại bằng tiếng anh`);
     setInfo({
       name: data.name,
       temp: Math.round(data.main.temp),
+      feel_like: Math.round(data.main.feels_like),
+      description: data.weather[0].description,
       humidity: data.main.humidity,
       wind: data.wind.speed,
       dt: data.dt,
       localDate: dateStr,
       localTime: timeStr,
+      localhours: hh,
+
     });
     console.log(city.current.value);
+
     if (data.weather[0].main == "Clouds") {
       setWeatherIcon("img/clouds.png");
     } else if (data.weather[0].main == "Mist") {
@@ -75,10 +82,13 @@ thành phố không tồn tại vui lòng nhập lại bằng tiếng anh`);
         <button onClick={handleClick}>Search</button>
       </div>
       {/* card thời tiết */}
-      {info && (
+      {info? (
         <div className="show-weather">
-          <img src={weatherIcon} alt="icon-weather" />
-          <h1>{info.temp} °C</h1>
+          {/* từ 18h-6h icon sẽ màu tối */}
+          <img id={(info.localhours>=18||info.localhours<=6)?"icon-weather-dark":undefined} src={weatherIcon} alt="icon-weather" />
+          <p id="temp">{info.temp} °C</p>
+          <p>feel like ~{info.feel_like}°C</p>
+          <p>description: {info.description}</p>
           <h2>{info.name}</h2>
           {/* details here */}
           <div className="detail-weather">
@@ -92,17 +102,17 @@ thành phố không tồn tại vui lòng nhập lại bằng tiếng anh`);
             <div className="column">
               <img src="img/wind.png" alt="icon-wind" />
               <div className="wind">
-                <p>{info.wind} km/h</p>
+                <p>{info.wind} m/s</p>
                 <p>wind</p>
               </div>
             </div>
           </div>
           <div className="detail-date">
-            <p>{info.localTime}</p>
-            <p>{info.localDate}</p>
+            <p>{info.localTime} {info.localDate}</p>
+
           </div>
         </div>
-      )}
+      ):<p>Search for city name or city name, country name to show weather</p>}
     </>
   );
 }
