@@ -8,6 +8,20 @@ body {
   text-align: center;
   background-image: linear-gradient(to right, rgb(255, 255, 255),rgb(255, 156, 98));
 }
+.header{
+  display: flex;
+  justify-content: center;
+  gap:5px;
+  margin-top: 10px;
+}
+.header img{
+  max-width: 60px;
+  max-height: 60px;
+  width: 10%;
+  height: 10%;
+  filter: brightness(0) saturate(100%) invert(18%) sepia(98%) saturate(7493%) hue-rotate(1deg) brightness(100%) contrast(112%);
+
+}
 h1 {
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
