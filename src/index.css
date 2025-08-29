@@ -23,7 +23,8 @@ h1 em{
 
 /* CARD */
 .show-weather{
-  width: 660px;
+  width: 90%; 
+  max-width: 630px;
   margin: 0 auto;
   padding: 24px 22px 28px;
   border-radius: 18px;
