@@ -1,0 +1,115 @@
+
+body {
+  margin: 0;
+
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+  text-align: center;
+  background-image: linear-gradient(to right, rgb(68, 208, 233),rgb(255, 188, 65));
+}
+
+/* CARD */
+.show-weather{
+  width: 360px;
+  margin: 0 auto;
+  padding: 24px 22px 28px;
+  border-radius: 18px;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.7);  
+
+}
+
+/* icon thời tiết to ở trên */
+.show-weather > img{
+  width: 140px;
+  display: block;
+  margin: 14px auto 6px;
+}
+
+/* nhiệt độ + city */
+.show-weather h1{
+  font-size: 56px;
+  line-height: 1;
+  margin: 8px 0 6px;
+  font-weight: 700;
+}
+.show-weather h2{
+  font-size: 28px;
+  margin: 0 0 12px;
+  font-weight: 600;
+}
+
+/* thanh search */
+.search{
+  margin-bottom: 5px;
+}
+input[type="text"]{
+  width: 15%;
+
+  padding: 15px 18px;
+  border: none;
+  outline: none;
+  border-radius: 999px;
+  background: rgba(0,0,0,.50);
+  color: #fff;
+  font-size: 1rem;
+  
+}
+button{
+  width: 53px;
+  height: 53px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(0,0,0,.50);
+  color: #fff;
+  cursor: pointer;
+}
+button:hover{
+  background-image: linear-gradient(to right, rgb(68, 208, 233),rgb(255, 188, 65));
+  color: rgb(0, 0, 0);
+}
+
+/* khu vực humidity + wind */
+.detail-weather{
+  display: flex;
+  justify-content: space-between;   /* tách 2 khối sang 2 bên */
+  align-items: center;
+  margin-top: 26px;
+  padding: 0 4px;
+}
+
+.column{
+  display: flex;
+  align-items: center;
+  gap: 14px;                        /* giãn icon với chữ */
+  min-width: 0;
+}
+
+.column img{
+  width: 44px;
+  height: 44px;
+  /*  đổi sang trắng  */
+  filter: brightness(0) invert(1);; 
+}
+
+.humidity p:first-child,
+.wind p:first-child{
+  margin: 0;
+  font-weight: 700;
+}
+.humidity p:last-child,
+.wind p:last-child{
+  margin: 2px 0 0;
+  font-size: 14px;
+  opacity: .85;
+}
+
+/* mobile: nếu hẹp quá thì tự xuống hàng */
+@media (max-width: 380px){
+  .detail-weather{ flex-wrap: wrap; row-gap: 14px; }
+  .column{ width: 100%; justify-content: center; }
+}
