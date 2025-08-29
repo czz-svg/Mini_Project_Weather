@@ -74,6 +74,10 @@ input[type="text"]{
 input[type="text"]:hover{
   border: 1px solid white;
 }
+input[type="text"]::placeholder {
+  color: white;     
+  opacity: 1;       
+}
 
 button{
   width: 53px;

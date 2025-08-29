@@ -7,6 +7,7 @@ export default function Weather() {
   const API_KEY = "1dc02c2cda3d32eda98eede7405d0e42";
   const BASE = "https://api.openweathermap.org/data/2.5/weather";
 
+
   async function checkWeather() {
     const url = `${BASE}?${new URLSearchParams({
       q: city.current.value,
@@ -14,13 +15,16 @@ export default function Weather() {
       appid: API_KEY,
     }).toString()}`;
 
-    const res = await fetch(url);
-    if (!res.ok) {
-      setInfo(null);
-      alert(`city does not exist, please re-enter
+    try {
+      const res = await fetch(url);
+      if (!res.ok) {
+        setInfo(null);
+        alert(`city does not exist, please re-enter
 thành phố không tồn tại vui lòng nhập lại bằng tiếng anh`);
-      return;
-    }
+        // Nếu muốn clear cả khi lỗi thì mở dòng dưới:
+        // city.current.value = "";
+        return;
+      }
     console.log(res);
 
     const data = await res.json();
@@ -49,25 +53,24 @@ thành phố không tồn tại vui lòng nhập lại bằng tiếng anh`);
       dt: data.dt,
       localDate: dateStr,
       localTime: timeStr,
-      localhours: hh,
+      localhours: Number(hh),
 
     });
-    console.log(city.current.value);
+      console.log(city.current.value);
+      city.current.value = ""
 
-    if (data.weather[0].main == "Clouds") {
-      setWeatherIcon("img/clouds.png");
-    } else if (data.weather[0].main == "Mist") {
-      setWeatherIcon("img/Mist.png");
-    } else if (data.weather[0].main == "Rain") {
-      setWeatherIcon("img/rain.png");
-    } else if (data.weather[0].main == "Drizzle") {
-      setWeatherIcon("img/drizzle.png");
-    } else if (data.weather[0].main == "Clear") {
-      setWeatherIcon("img/clear.png");
-    } else if (data.weather[0].main == "Snow") {
-      setWeatherIcon("img/snow.png");
-    } else if (data.weather[0].main == "Haze") {
-      setWeatherIcon("img/haze.png");
+    const main = data.weather[0].main;
+      if (main === "Clouds") setWeatherIcon("img/clouds.png");
+      else if (main === "Mist") setWeatherIcon("img/Mist.png");
+      else if (main === "Rain") setWeatherIcon("img/rain.png");
+      else if (main === "Drizzle") setWeatherIcon("img/drizzle.png");
+      else if (main === "Clear") setWeatherIcon("img/clear.png");
+      else if (main === "Snow") setWeatherIcon("img/snow.png");
+      else if (main === "Haze") setWeatherIcon("img/haze.png");
+    } catch (e) {
+      console.error(e);
+      alert("Network error.");
+      city.current.value = "";
     }
   }
 
@@ -78,7 +81,7 @@ thành phố không tồn tại vui lòng nhập lại bằng tiếng anh`);
     <>
       {/* thanh search */}
       <div className="search">
-        <input type="text" ref={city} onKeyDown={(e) => e.key === "Enter" && handleClick()}/>
+        <input type="text" ref={city} onKeyDown={(e) => e.key === "Enter" && handleClick()} placeholder="Enter city..."/>
         <button onClick={handleClick}>Search</button>
       </div>
       {/* card thời tiết */}
